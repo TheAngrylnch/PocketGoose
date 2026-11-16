@@ -1,11 +1,10 @@
-
 name: Build Pocket Goose APK
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'Pocket_Goose_Android_Project.zip'
+      - 'Pocket_Goose_V2_Android_Project.zip'
       - '.github/workflows/build.yml'
 
 jobs:
@@ -27,18 +26,17 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Extract project
+      - name: Extract Pocket Goose V2
         run: |
           mkdir source
-          unzip -q Pocket_Goose_Android_Project.zip -d source
+          unzip -q Pocket_Goose_V2_Android_Project.zip -d source
 
-      - name: Build debug APK
+      - name: Build Android APK
         working-directory: source
         run: gradle assembleDebug
 
-      - name: Upload APK
+      - name: Upload Pocket Goose APK
         uses: actions/upload-artifact@v4
         with:
-          name: Pocket-Goose-debug
+          name: Pocket-Goose-V2
           path: source/app/build/outputs/apk/debug/app-debug.apk
-
