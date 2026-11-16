@@ -1,42 +1,35 @@
-name: Build Pocket Goose APK
-
+name: Build Pocket Goose V3
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'Pocket_Goose_V2_Android_Project.zip'
+      - 'Pocket_Goose_V3_Android_Project.zip'
       - '.github/workflows/build.yml'
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
-
-      - name: Extract Pocket Goose V2
+      - name: Extract Pocket Goose V3
         run: |
           mkdir source
-          unzip -q Pocket_Goose_V2_Android_Project.zip -d source
-
+          unzip -q Pocket_Goose_V3_Android_Project.zip -d source
       - name: Build Android APK
         working-directory: source
         run: gradle assembleDebug
-
-      - name: Upload Pocket Goose APK
+      - name: Upload Pocket Goose V3 APK
         uses: actions/upload-artifact@v4
         with:
-          name: Pocket-Goose-V2
+          name: Pocket-Goose-V3
           path: source/app/build/outputs/apk/debug/app-debug.apk
+
